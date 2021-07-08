@@ -68,12 +68,15 @@ func (hSubscr hederaSubscriber) SubscribeToEvents(channel chan<- subscriber.Even
 
 	//todo see where we lose the / - we losing the / on row 22 the "strings.TrimSuffix(sub.Endpoint.Url, "/")" operation removes last / from the string.
 
+
+
 	if len(hederaSubscribersMap[hederaSubscription.accountId]) == 0 {
 		var url = hederaSubscription.endpoint + "/"
 		var client = NewClient(url, 5)
 		hederaSubscription = client.WaitForTransaction(hederaSubscription.accountId, hederaSubscription)
 	}
 
+	//todo add account id <-> hedera subscription to the map, not jobid
 	addHederaSubscriber(hederaSubscription.accountId, hederaSubscription.jobid)
 
 	return hederaSubscription, nil
@@ -161,6 +164,8 @@ func DecodeTransactionMemo(transactionMemo string) ([]byte, error) {
 }
 
 // WaitForTransaction Polls the transaction at intervals.
+
+//todo remove 2nd param and return (make it void)
 func (c Client) WaitForTransaction(accoutId string, hs hederaSubscription) hederaSubscription {
 
 	logger.Infof("Using Hedera Mirror endpoint: %s, Listening for events on account id: %v", hs.endpoint, hs.accountId)
@@ -197,6 +202,10 @@ func (c Client) WaitForTransaction(accoutId string, hs hederaSubscription) heder
 					if err != nil {
 						logger.Errorf("error!")
 					}
+					//todo from map take list of subs for account id
+					// from the list of subs find which one(s) have matching job id
+					// for the ones matching, through their channels send the event
+					// service.go should trigger the correct jobs
 					hs.events <- bytes
 				}
 			}
