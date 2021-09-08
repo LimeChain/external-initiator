@@ -25,7 +25,7 @@ func TestHedera_CreateHederaSubscriber(t *testing.T) {
 			hederaSubscriber{},
 		},
 		{
-			"enpoint only",
+			"endpoint only",
 			store.Subscription{
 				Endpoint: store.Endpoint{Url: "http://example.com/api"},
 			},

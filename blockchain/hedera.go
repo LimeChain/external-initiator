@@ -38,7 +38,7 @@ func createHederaSubscriber(sub store.Subscription) hederaSubscriber {
 
 	return hederaSubscriber{
 		Endpoint:  sub.Endpoint.Url,
-		AccountId: sub.Hedera.AccountId,
+		AccountId: sub.Hedera.AccountIds[0],
 		JobID:     sub.Job,
 	}
 }

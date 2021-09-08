@@ -54,7 +54,6 @@ type Params struct {
 	Addresses   []string `json:"addresses"`
 	Topics      []string `json:"topics"`
 	AccountIds  []string `json:"accountIds"`
-	AccountId   string   `json:"accountId"`
 	Address     string   `json:"address"`
 	UpkeepID    string   `json:"upkeepId"`
 	ServiceName string   `json:"serviceName"`
@@ -183,7 +182,7 @@ func GetValidations(t string, params Params) []int {
 		}
 	case HEDERA:
 		return []int{
-			len(params.AccountId),
+			len(params.AccountIds),
 		}
 	}
 
@@ -238,7 +237,7 @@ func CreateSubscription(sub *store.Subscription, params Params) {
 		sub.Agoric = store.AgoricSubscription{}
 	case HEDERA:
 		sub.Hedera = store.HederaSubscription{
-			AccountId: params.AccountId,
+			AccountIds: params.AccountIds,
 		}
 	}
 }

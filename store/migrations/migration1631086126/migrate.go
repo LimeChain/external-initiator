@@ -1,4 +1,4 @@
-package migration1614545435
+package migration1631086126
 
 import (
 	"github.com/jinzhu/gorm"
