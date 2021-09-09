@@ -100,7 +100,7 @@ func CreateClientManager(sub store.Subscription) (subscriber.ISubscriber, error)
 	case BIRITA:
 		return createBSNIritaSubscriber(sub)
 	case HEDERA:
-		return createHederaSubscriber(sub), nil
+		return createHederaSubscriber(sub)
 	}
 
 	return nil, errors.New("unknown blockchain type for Client subscription")
