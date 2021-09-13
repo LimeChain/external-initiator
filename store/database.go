@@ -375,5 +375,5 @@ type AgoricSubscription struct {
 type HederaSubscription struct {
 	gorm.Model
 	SubscriptionId uint
-	AccountIds      []string
+	AccountIds     SQLStringArray
 }
